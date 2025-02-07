@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import "../assets/styles/global.css";
 
-const url = import.meta.env.STRAPI_URL + "/api/articles";
+const url = import.meta.env.PUBLIC_STRAPI_URL + "/api/articles";
 
 const articles = await fetch(url)
   .then((response) => response.json())
