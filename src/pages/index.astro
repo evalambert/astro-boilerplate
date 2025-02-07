@@ -4,11 +4,21 @@ import "../assets/styles/global.css";
 
 const url = import.meta.env.PUBLIC_STRAPI_URL + "/api/articles";
 
-const articles = await fetch(url)
-  .then((response) => response.json())
+const articles = await fetch(url, {
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }
+})
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
   .catch((error) => {
     console.error("Erreur lors de la récupération des articles:", error);
-    return null;
+    return { data: [] };
   });
 
 export const prerender = true;
